@@ -1,0 +1,33 @@
+<h1>Invitation</h1>
+
+<ul>
+  <li><a [routerLink]="$projectId() ? ['/project', $projectId()] : ['/project']">back</a></li>
+</ul>
+
+<div *ngIf="$step() === 1">
+  <div *ngIf="$isLoadingProjects()">LOADING...</div>
+  <div
+    *ngFor="let project of $projects()"
+    (click)="onClickProject(project)"
+  >
+    <input type="checkbox" [checked]="$selectedProject()[project.id]" /> {{ project.name }}
+  </div>
+</div>
+
+<div *ngIf="$step() === 2">
+  <div>[ {{ $invitationUrl() }} ]</div>
+  <button (click)="onClickCopy()">Copy</button>
+</div>
+
+<div>
+  <button
+    *ngIf="$step() === 1"
+    [disabled]="!$hasSelection()"
+    (click)="onClickNext()"
+  >Next</button>
+
+  <button
+    *ngIf="$step() === 2"
+    (click)="onClickDone()"
+  >Done</button>
+</div>

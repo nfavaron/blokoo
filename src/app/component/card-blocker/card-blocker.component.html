@@ -1,0 +1,7 @@
+<div class="bk__card-blocker">
+  <app-card-user [userId]="blocker.createUserId"></app-card-user>
+  <div>
+    <div>waiting for <span>{{ blocker.waitingFor }}</span> to <span>{{ blocker.to }}</span></div>
+    <div>since {{ blocker.createTimestamp|date }}</div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div
+  *ngIf="message()"
+  class="app-message"
+>
+  <div class="app-message__bg app-message__bg--{{ message().type }}"></div>
+  <div class="app-message__text">{{ message().text }}</div>
+</div>

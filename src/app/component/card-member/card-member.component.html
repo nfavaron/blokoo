@@ -1,0 +1,7 @@
+<div class="bk__card-member">
+  <app-card-user [userId]="member.userId"></app-card-user>
+  <div>
+    <div>{{ $name() }}</div>
+    <div>{{ member.acl|projectAcl }} since {{ member.createTimestamp|date }}</div>
+  </div>
+</div>

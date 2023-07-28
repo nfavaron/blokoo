@@ -1,0 +1,14 @@
+<app-message />
+<main>
+  <a [routerLink]="['/']"> [ BLOKOO ] </a>
+  <div *ngIf="$user().id">
+    ({{ $user().name }})
+    | <a [routerLink]="['/invitation']">Invite</a> |
+    <button (click)="onClickSignOut()">
+      Sign out
+    </button>
+  </div>
+  <section>
+    <router-outlet />
+  </section>
+</main>

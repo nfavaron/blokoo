@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "blokoo-development": {
+      "hosting": {
+        "blokoo": [
+          "blokoo-development"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "blokoo-development"
+  }
+}

@@ -1,0 +1,29 @@
+<h1>{{ $isLoadingProject() ? 'LOADING...' : $project().name }}</h1>
+
+<ul>
+  <li><a [routerLink]="['/project']">back</a></li>
+</ul>
+
+<div *ngIf="$isLoadingBlockers()">LOADING BLOCKERS...</div>
+<div *ngIf="!$isLoadingBlockers()">
+  <h2>Blockers</h2>
+  <app-card-blocker
+    *ngFor="let blocker of $blockers()"
+    [blocker]="blocker"
+  ></app-card-blocker>
+
+  <button (click)="onClickAddBlocker()">Add blocker</button>
+</div>
+
+<div *ngIf="$isLoadingMembers()">LOADING MEMBERS...</div>
+<div *ngIf="!$isLoadingMembers()">
+  <h2>Members</h2>
+
+  <app-card-member
+    *ngFor="let member of $members()"
+    [member]="member"
+  ></app-card-member>
+
+  <a [routerLink]="['/invitation', $project().id]">Invite</a>
+</div>
+
