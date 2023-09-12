@@ -1,5 +1,22 @@
-<h1>BloKoO</h1>
-<p>Tired of asking your teams what is blocking this or that project ?</p>
-<p>You will love BloKoO!</p>
+<div class="bk__page bk__page--center">
 
-<a [routerLink]="['/authentication']">Sign in</a>
+  <div>
+    <app-blokoo class="bk__blokoo bk__blokoo--huge"></app-blokoo>
+    <div class="catchphrase">Who needs to do what ?</div>
+  </div>
+
+  <div class="bk__flex bk__flex--column middle">
+    <app-logo class="bk__logo bk__logo--huge"></app-logo>
+    <div class="line line1">YOUR PROJECTS</div>
+    <div class="line line2">BLOCKERS IN ONE VIEW</div>
+  </div>
+
+  <a
+    [routerLink]="['/authentication']"
+    class="bk__button bk__button--page"
+  >
+    <span class="bk__button_text">Let's start</span>
+    <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+  </a>
+
+</div>

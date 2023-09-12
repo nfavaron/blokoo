@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+}
+
+body {
+  background: var(--primary-background);
+  color: var(--primary-color);
+  transition: background-color 250ms ease-out;
+  position: relative;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}

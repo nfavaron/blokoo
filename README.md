@@ -1,11 +1,16 @@
 # BloKoo
 
-First CLI
+Setup
+```
+npm install
+```
+
+Development mode
 ```
 npm start
 ```
 
-Second CLI
+Production bundle
 ```
-json-server --watch db.json
+npm run build
 ```

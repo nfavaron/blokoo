@@ -1,7 +1,8 @@
 <div
-  *ngIf="message()"
-  class="app-message"
+  *ngIf="$message().text"
+  class="bk__message bk__message--{{ $message().type }}"
+  [style.animation-duration]="duration + 'ms'"
+  (click)="onClickMessage()"
 >
-  <div class="app-message__bg app-message__bg--{{ message().type }}"></div>
-  <div class="app-message__text">{{ message().text }}</div>
+  {{ $message().text }}
 </div>

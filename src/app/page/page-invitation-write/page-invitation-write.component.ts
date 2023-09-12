@@ -11,6 +11,7 @@ import { ClipboardService } from '../../service/clipboard.service';
 import { ProjectDto } from '../../dto/project.dto';
 import { ProjectAclEnum } from '../../enum/project-acl.enum';
 import { InvitationConfig } from '../../config/invitation.config';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-page-invitation-write',
@@ -20,6 +21,8 @@ import { InvitationConfig } from '../../config/invitation.config';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -108,12 +111,6 @@ export class PageInvitationWriteComponent implements OnInit, OnDestroy {
 
     // Notify
     this.messageService.notify('notice', 'Invitation link copied to clipboard!');
-  }
-
-  /**
-   * Clicked done button
-   */
-  onClickDone(): void {
 
     // Inviting from a project
     if (this.route.snapshot.params['projectId']) {

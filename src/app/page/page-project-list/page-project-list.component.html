@@ -1,37 +1,51 @@
-<h1>Projects</h1>
-<button (click)="onClickAdd()">Add project</button>
+<div class="bk__page">
 
-<div *ngIf="$isLoading()">LOADING...</div>
+  <div *ngIf="$isLoading()">TODO[nico] LOADING...</div>
 
-<ng-container *ngFor="let project of $projects()">
+  <ng-container *ngFor="let project of $projects()">
 
-  <div
-    *ngIf="$acl()[project.id] && $acl()[project.id].acl === PROJECT_ACL_INVITED"
-    class="project project--invited"
-  >
-    <div class="project-info">
-      <div class="project-name">{{ project.name }}</div>
-      <div class="project-status">invited</div>
+    <div
+      *ngIf="$acl()[project.id] && $acl()[project.id].acl === PROJECT_ACL_INVITED"
+      class="project project--invited"
+    >
+      <div class="project-info">
+        <div class="project-name">{{ project.name }}</div>
+        <div class="project-status">invited</div>
+      </div>
+      <button
+        class="invitation invitation--accept"
+        (click)="onClickInvitation(project.id, true)"
+      >Accept</button>
+      <button
+        class="invitation invitation--reject"
+        (click)="onClickInvitation(project.id, false)"
+      >Reject</button>
     </div>
+
+    <a
+      *ngIf="$acl()[project.id] && $acl()[project.id].acl >= PROJECT_ACL_MEMBER"
+      class="project project--member"
+      [routerLink]="['/project/' + project.id]"
+    >
+      <div class="project-info">
+        <div class="project-name">{{ project.name }}</div>
+        <div class="project-status">waiting for {{ project.waitingFor }} to {{ project.to }} since {{ project.sinceTimestamp }}</div>
+      </div>
+    </a>
+
+  </ng-container>
+
+</div>
+
+<footer class="bk__bar bk__bar--footer">
+  <div class="bk__boxed bk__boxed--bar">
+    <span class="bk__bar_title">My projects</span>
+    <div class="bk__spacer"></div>
     <button
-      class="invitation invitation--accept"
-      (click)="onClickInvitation(project.id, true)"
-    >Accept</button>
-    <button
-      class="invitation invitation--reject"
-      (click)="onClickInvitation(project.id, false)"
-    >Reject</button>
+      class="bk__button bk__button--rounded-icon bk__button--margin-left"
+      (click)="onClickAddProject()"
+    >
+      <span class="bk__button-icon bk__button-icon--add"></span>
+    </button>
   </div>
-
-  <a
-    *ngIf="$acl()[project.id] && $acl()[project.id].acl >= PROJECT_ACL_MEMBER"
-    class="project project--member"
-    [routerLink]="['/project/' + project.id]"
-  >
-    <div class="project-info">
-      <div class="project-name">{{ project.name }}</div>
-      <div class="project-status">waiting for {{ project.waitingFor }} to {{ project.to }} since {{ project.sinceTimestamp }}</div>
-    </div>
-  </a>
-
-</ng-container>
+</footer>

@@ -66,7 +66,7 @@ export class AuthenticationService {
   /**
    * Sign in user
    */
-  async signIn(providerName: string): Promise<void> {
+  async signIn(providerName: string, email?: string): Promise<void> {
 
     // Unsupported provider
     if (!this.userConfig.authProviderMapping[providerName]) {
@@ -75,7 +75,7 @@ export class AuthenticationService {
     }
 
     // Sign in
-    await signInWithPopup(this.auth, this.userConfig.authProviderMapping[providerName]());
+    await this.userConfig.authProviderMapping[providerName](this.auth, email || '');
 
     return Promise.resolve();
   }

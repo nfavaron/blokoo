@@ -1,0 +1,29 @@
+.bk__input {
+  height: 4rem;
+  line-height: 4rem;
+  font-size: 1rem;
+  padding: 0 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: transparent;
+  transition: border-color 250ms ease-out;
+  flex-shrink: 1;
+  width: 100%;
+  background: var(--accent-color);
+}
+
+.bk__input:hover {
+  border-color: var(--accent-background);
+}
+
+.bk__input:focus {
+  border-color: var(--brand-primary-color);
+}
+
+.bk__input.ng-invalid:not(.ng-pristine) {
+  border-color: var(--status-failure-color);
+}
+
+.bk__input.ng-valid:not(.ng-pristine) {
+  border-color: var(--status-success-color);
+}

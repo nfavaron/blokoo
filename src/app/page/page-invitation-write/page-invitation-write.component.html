@@ -1,33 +1,67 @@
-<h1>Invitation</h1>
+<div class="bk__page">
 
-<ul>
-  <li><a [routerLink]="$projectId() ? ['/project', $projectId()] : ['/project']">back</a></li>
-</ul>
+  <div class="bk__boxed bk__boxed--page">
 
-<div *ngIf="$step() === 1">
-  <div *ngIf="$isLoadingProjects()">LOADING...</div>
-  <div
-    *ngFor="let project of $projects()"
-    (click)="onClickProject(project)"
-  >
-    <input type="checkbox" [checked]="$selectedProject()[project.id]" /> {{ project.name }}
+    <div>
+      <h1>Invitation</h1>
+      <p *ngIf="$step() === 1">Please select projects</p>
+      <p *ngIf="$step() === 2">Please send this link to invite</p>
+    </div>
+
+    <ng-container *ngIf="$step() === 1">
+
+      <div *ngIf="$isLoadingProjects()">TODO[nico] LOADING...</div>
+      <div>
+        <div
+          *ngFor="let project of $projects()"
+          (click)="onClickProject(project)"
+        >
+          <input type="checkbox" [checked]="$selectedProject()[project.id]" /> {{ project.name }}
+        </div>
+      </div>
+
+      <button
+        class="bk__button bk__button--page"
+        [disabled]="$hasSelection() === false"
+        (click)="onClickNext()"
+      >
+        <span class="bk__button_text">Next step</span>
+        <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+      </button>
+
+    </ng-container>
+
+    <ng-container *ngIf="$step() === 2">
+
+      <input
+        type="text"
+        class="bk__input"
+        value="{{ $invitationUrl() || 'Loading...' }}"
+        (click)="onClickCopy()"
+      />
+
+
+    </ng-container>
   </div>
-</div>
-
-<div *ngIf="$step() === 2">
-  <div>[ {{ $invitationUrl() }} ]</div>
-  <button (click)="onClickCopy()">Copy</button>
-</div>
-
-<div>
-  <button
-    *ngIf="$step() === 1"
-    [disabled]="!$hasSelection()"
-    (click)="onClickNext()"
-  >Next</button>
 
   <button
-    *ngIf="$step() === 2"
-    (click)="onClickDone()"
-  >Done</button>
+    class="bk__button bk__button--page"
+    (click)="onClickCopy()"
+  >
+    <span class="bk__button_text">Copy link</span>
+    <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--copy"></span>
+  </button>
+
 </div>
+
+<footer class="bk__bar bk__bar--footer">
+  <div class="bk__boxed bk__boxed--bar">
+    <a
+      [routerLink]="$projectId() ? ['/project', $projectId()] : ['/project']"
+      class="bk__button bk__button--rounded-icon bk__button--margin-right"
+    >
+      <span class="bk__button-icon bk__button-icon--back"></span>
+    </a>
+    <span class="bk__bar_title">Invite to project(s)</span>
+  </div>
+</footer>

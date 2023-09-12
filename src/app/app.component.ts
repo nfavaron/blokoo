@@ -7,7 +7,6 @@ import { MessageService } from './service/message.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
@@ -36,6 +35,14 @@ export class AppComponent {
 
     // Subscribing in constructor as OnInit/OnDestroy does not make sense in AppComponent
     this.userAuthenticationService.user$.subscribe(user => this.onNextUser(user));
+  }
+
+  /**
+   * Clicked "menu" button
+   */
+  onClickMenu(): void {
+
+    console.log('TODO[nico] onClickMenu');
   }
 
   /**

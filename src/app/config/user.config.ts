@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AuthProvider, FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from '@angular/fire/auth';
+import {
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  Auth, signInWithPopup, sendSignInLinkToEmail
+} from '@angular/fire/auth';
+import { UserCredential } from '@firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +23,10 @@ export class UserConfig {
   /**
    * Supported authentication providers
    */
-  authProviderMapping: { [providerName: string]: () => AuthProvider } = {
-    google: () => new GoogleAuthProvider(),
-    github: () => new GithubAuthProvider(),
-    facebook: () => new FacebookAuthProvider(),
+  authProviderMapping: { [providerName: string]: (auth: Auth, email: string) => Promise<UserCredential|void> } = {
+    google: (auth: Auth, email: string) => signInWithPopup(auth, new GoogleAuthProvider()),
+    github: (auth: Auth, email: string) => signInWithPopup(auth, new GithubAuthProvider()),
+    facebook: (auth: Auth, email: string) => signInWithPopup(auth, new FacebookAuthProvider()),
+    email: (auth: Auth, email: string) => sendSignInLinkToEmail(auth,  email, { handleCodeInApp: true, url: window.location.href }),
   };
 }

@@ -11,6 +11,8 @@ import routerConfig from './config/router.config';
 import { CommonModule } from '@angular/common';
 import { MessageComponent } from './component/message/message.component';
 import { ClipboardModule as NgxClipboardModule } from 'ngx-clipboard';
+import { LogoComponent } from './component/logo/logo.component';
+import { BlokooComponent } from './component/blokoo/blokoo.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ClipboardModule as NgxClipboardModule } from 'ngx-clipboard';
     CommonModule,
 
     // Components
+    LogoComponent,
+    BlokooComponent,
     MessageComponent,
 
     // Firestore (has to be imported in AppModule, doesn't work with standalone component in Angular 16.1.0)

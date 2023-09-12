@@ -1,0 +1,23 @@
+.bk__page {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 4rem 0;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.bk__page--center {
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.bk__page--vertical-space-between {
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: column;
+}

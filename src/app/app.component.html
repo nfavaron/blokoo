@@ -1,14 +1,27 @@
 <app-message />
-<main>
-  <a [routerLink]="['/']"> [ BLOKOO ] </a>
-  <div *ngIf="$user().id">
-    ({{ $user().name }})
-    | <a [routerLink]="['/invitation']">Invite</a> |
+<header
+  *ngIf="$user().id"
+  class="bk__bar bk__bar--header"
+>
+  <div class="bk__boxed bk__boxed--bar">
+    <a
+      [routerLink]="['/']"
+      class="bk__flex bk__flex--start"
+    >
+      <app-logo class="bk__logo"></app-logo>
+      <app-blokoo class="bk__blokoo"></app-blokoo>
+    </a>
+    <div class="bk__spacer"></div>
+    <button
+      class="bk__button bk__button--rounded-icon bk__button--margin-left"
+      (click)="onClickMenu()"
+    >
+      <span class="bk__button-icon bk__button-icon--menu"></span>
+    </button>
+    <!--<a [routerLink]="['/invitation']">Invite</a> |
     <button (click)="onClickSignOut()">
       Sign out
-    </button>
+    </button>-->
   </div>
-  <section>
-    <router-outlet />
-  </section>
-</main>
+</header>
+<router-outlet />

@@ -1,13 +1,63 @@
-<h1>Authentication</h1>
+<div class="bk__page bk__page--center">
 
-<button (click)="onClickSignIn('google')">
-  Sign in with Google
-</button>
-&nbsp;-&nbsp;
-<button (click)="onClickSignIn('github')">
-  Sign in with GitHub
-</button>
-&nbsp;-&nbsp;
-<button (click)="onClickSignIn('facebook')">
-  Sign in with Facebook
-</button>
+  <h2>Sign in by email</h2>
+
+  <form
+    class="boxed"
+    [formGroup]="signInByEmailForm"
+    (ngSubmit)="onSubmitSignInByEmailForm()"
+  >
+    <div class="form">
+      <input
+        type="email"
+        placeholder="my@email.com"
+        formControlName="email"
+        class="bk__input"
+      />
+      <button
+        type="submit"
+        class="bk__button bk__button--next-to-input"
+        [disabled]="!signInByEmailForm.valid"
+      >
+        <span class="bk__button-icon bk__button-icon--next"></span>
+      </button>
+    </div>
+  </form>
+
+  <div class="boxed separator">
+    <div class="line"></div>
+    <div class="or">OR</div>
+    <div class="line"></div>
+  </div>
+
+  <h2>Sign in with</h2>
+
+  <div class="boxed buttons">
+
+    <button
+      class="bk__button bk__button_social bk__button_social--google"
+      (click)="onClickSignInWith('google')"
+    >
+      <span class="bk__button_text">Google</span>
+      <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+    </button>
+
+    <button
+      class="bk__button bk__button_social bk__button_social--github"
+      (click)="onClickSignInWith('github')"
+    >
+      <span class="bk__button_text">GitHub</span>
+      <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+    </button>
+
+    <button
+      class="bk__button bk__button_social bk__button_social--facebook"
+      (click)="onClickSignInWith('facebook')"
+    >
+      <span class="bk__button_text">Facebook</span>
+      <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+    </button>
+
+  </div>
+
+</div>

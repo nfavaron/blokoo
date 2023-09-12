@@ -92,9 +92,9 @@ export class PageProjectListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Clicked "add" button
+   * Clicked "add project" button
    */
-  onClickAdd(): void {
+  onClickAddProject(): void {
 
     this
       .projectService

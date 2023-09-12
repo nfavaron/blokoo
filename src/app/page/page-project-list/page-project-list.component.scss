@@ -28,11 +28,11 @@
 }
 
 .invitation--accept {
-  color: var(--accent-color);
-  background: var(--primary-color);
+  color: var(--secondary-color);
+  background: var(--brand-primary-color);
 }
 
 .invitation--reject {
-  color: var(--primary-color);
-  background: var(--accent-color);
+  color: var(--brand-primary-color);
+  background: var(--secondary-background);
 }

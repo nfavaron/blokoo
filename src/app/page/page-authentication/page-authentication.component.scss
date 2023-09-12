@@ -1,0 +1,64 @@
+h2 {
+  font-size: 1.5rem;
+  margin: 0 0 2rem 0;
+}
+
+.boxed {
+  width: 90%;
+  max-width: 400px;
+}
+
+form,
+.form,
+.separator,
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.separator {
+  margin: 5rem 0;
+}
+
+.line {
+  width: 100%;
+  border: solid 1px var(--accent-background);
+  opacity: 0.25;
+}
+
+.or {
+  padding: 0 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+
+.buttons {
+  flex-flow: column;
+}
+
+.form {
+  transition: width 250ms ease-out;
+}
+
+.bk__button_social {
+  margin-bottom: 0.5rem;
+}
+
+.form,
+.bk__button_social {
+  width: 90%;
+}
+
+.form:has(.bk__input:focus),
+.bk__button_social:hover {
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+
+  .boxed {
+    width: 100%;
+  }
+}

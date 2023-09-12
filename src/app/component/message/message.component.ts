@@ -1,28 +1,37 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { MessageDto } from '../../dto/message.dto';
 import { MessageService } from '../../service/message.service';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { AbstractComponent } from '../abstract.component';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
-  styleUrls: ['./message.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessageComponent implements OnInit, OnDestroy {
+export class MessageComponent extends AbstractComponent implements OnInit {
 
   /**
-   * State
+   * Configuration
    */
-  message: WritableSignal<MessageDto> = signal({
+  duration: number = 3000; // Animation duration in ms
+
+  /**
+   * State (public)
+   */
+  $message: WritableSignal<MessageDto> = signal({
     type: 'success',
     text: '',
   });
+
+  /**
+   * State (private)
+   */
+  private durationTimeout: number = 0;
 
   /**
    * Dependencies
@@ -30,24 +39,53 @@ export class MessageComponent implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
 
   /**
-   * Observable subscriptions
-   */
-  private subscriptions: Subscription[] = [];
-
-  /**
    * @inheritDoc
    */
   ngOnInit(): void {
 
-    this.subscriptions.push(this.messageService.select().subscribe(message => this.message.set(message)));
+    // Subscribe to observables
+    this.subscribe(
+      this.messageService.select(),
+      (message) => this.onNextMessage(message)
+    );
   }
 
   /**
-   * @inheritDoc
+   * Next message
    */
-  ngOnDestroy(): void {
+  onNextMessage(message: MessageDto): void {
 
-    // Unsubscribe from observables
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    // Set new message
+    this.$message.set(message);
+
+    // Reset message after this.duration ms
+    setTimeout(() => this.reset(), this.duration);
+  }
+
+  /**
+   * Clicked the message
+   */
+  onClickMessage(): void {
+
+    // Reset message
+    this.reset();
+  }
+
+  /**
+   * Reset message
+   */
+  private reset(): void {
+
+    // Has a duration timeout
+    if (this.durationTimeout) {
+
+      clearTimeout(this.durationTimeout);
+    }
+
+    // Set default message
+    this.$message.set({
+      type: 'success',
+      text: '',
+    });
   }
 }

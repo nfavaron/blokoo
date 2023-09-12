@@ -1,0 +1,18 @@
+.bk__boxed {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+.bk__boxed--page {
+  padding: 1rem;
+}
+
+.bk__boxed--bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  height: 4rem;
+}
