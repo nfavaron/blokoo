@@ -1,12 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  addDoc,
-  collection,
-  collectionData, doc,
-  Firestore,
-  query, setDoc
-} from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, query, setDoc } from '@angular/fire/firestore';
 import { orderBy } from '@firebase/firestore';
 import { BlockerFilterInterface } from '../interface/blocker-filter.interface';
 import { BlockerDto } from '../dto/blocker.dto';

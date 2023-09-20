@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MessageDto } from '../dto/message.dto';
-import { MessageType } from '../type/message.type';
 
 @Injectable({
   providedIn: 'root'
@@ -24,21 +23,16 @@ export class MessageService {
   }
 
   /**
-   * Return an observable of the current message
+   * Return an observable of the current message.
+   * Optional message update.
    */
-  select(): Observable<MessageDto> {
+  message(message?: MessageDto): Observable<MessageDto> {
+
+    if (message) {
+
+      this.messageSubject.next(message);
+    }
 
     return this.message$;
-  }
-
-  /**
-   * Notify message
-   */
-  notify(type: MessageType, text: string): void {
-
-    this.messageSubject.next({
-      type,
-      text,
-    });
   }
 }

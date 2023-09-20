@@ -1,0 +1,16 @@
+.bk__tab {
+  position: fixed;
+  top: 100%;
+  left: 100%;
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+  width: 100%;
+  height: 100%;
+}
+
+.bk__tab--is-active {
+  position: relative;
+  left: 0;
+  top: 0;
+  opacity: 1;
+}

@@ -1,4 +1,4 @@
-.bk__message {
+.message {
   width: 120%;
   display: flex;
   align-items: center;
@@ -11,27 +11,27 @@
   padding: 1.5rem 0;
   font-weight: bold;
   color: var(--accent-color);
-  animation-name: bk__message;
+  animation-name: message;
   opacity: 0.9;
 }
 
-.bk__message--success {
+.message--success {
   background: var(--status-success-color);
 }
 
-.bk__message--failure {
+.message--failure {
   background: var(--status-failure-color);
 }
 
-.bk__message--warning {
+.message--warning {
   background: var(--status-warning-color);
 }
 
-.bk__message--notice {
+.message--notice {
   background: var(--status-notice-color);
 }
 
-@keyframes bk__message {
+@keyframes message {
   0% {
     left: 100%;
   }

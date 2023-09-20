@@ -1,8 +1,8 @@
-<div class="bk__page">
+<div class="bk__flex bk__flex--page bk__flex--vertical-space-evenly">
 
-  <div class="bk__boxed bk__boxed--page">
+  <div class="bk__flex bk__flex--vertical-space-evenly bk__flex--boxed bk__flex--boxed-padding">
 
-    <div>
+    <div class="instructions">
       <h1>Invitation</h1>
       <p *ngIf="$step() === 1">Please select projects</p>
       <p *ngIf="$step() === 2">Please send this link to invite</p>
@@ -11,12 +11,19 @@
     <ng-container *ngIf="$step() === 1">
 
       <div *ngIf="$isLoadingProjects()">TODO[nico] LOADING...</div>
-      <div>
+      <div class="bk__list project-list">
         <div
           *ngFor="let project of $projects()"
+          class="bk__list-item"
           (click)="onClickProject(project)"
         >
-          <input type="checkbox" [checked]="$selectedProject()[project.id]" /> {{ project.name }}
+          <app-icon
+            [uid]="$selectedProject()[project.id] ? 'checkbox-checked' : 'checkbox-unchecked'"
+            class="bk__list-item-icon"
+            [class.app-icon--color-success]="!!$selectedProject()[project.id]"
+            [class.app-icon--color-neutral]="!$selectedProject()[project.id]"
+          />
+          <span class="bk__list-item-text bk__list-item-text--with-icon">{{ project.name }}</span>
         </div>
       </div>
 
@@ -26,7 +33,7 @@
         (click)="onClickNext()"
       >
         <span class="bk__button_text">Next step</span>
-        <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+        <app-icon uid="next" />
       </button>
 
     </ng-container>
@@ -40,28 +47,15 @@
         (click)="onClickCopy()"
       />
 
+      <button
+        class="bk__button bk__button--page"
+        (click)="onClickCopy()"
+      >
+        <span class="bk__button_text">Copy link</span>
+        <app-icon uid="copy" />
+      </button>
 
     </ng-container>
   </div>
 
-  <button
-    class="bk__button bk__button--page"
-    (click)="onClickCopy()"
-  >
-    <span class="bk__button_text">Copy link</span>
-    <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--copy"></span>
-  </button>
-
 </div>
-
-<footer class="bk__bar bk__bar--footer">
-  <div class="bk__boxed bk__boxed--bar">
-    <a
-      [routerLink]="$projectId() ? ['/project', $projectId()] : ['/project']"
-      class="bk__button bk__button--rounded-icon bk__button--margin-right"
-    >
-      <span class="bk__button-icon bk__button-icon--back"></span>
-    </a>
-    <span class="bk__bar_title">Invite to project(s)</span>
-  </div>
-</footer>

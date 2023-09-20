@@ -1,0 +1,32 @@
+:host {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  box-shadow: 0 0 10px var(--shadow-color);
+  background: var(--accent-background);
+  display: flex;
+  height: 4rem;
+}
+
+.logo {
+  padding: 0 0.25rem;
+  flex-shrink: 0;
+}
+
+app-blokoo {
+  margin: 0 0 0 0.5rem;
+}
+
+.title {
+  flex-shrink: 1;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0.5rem;
+  color: var(--accent-color);
+  font-weight: bold;
+  white-space: nowrap;
+  text-align: center;
+}

@@ -1,8 +1,4 @@
-import {
-  Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot, UrlTree
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthenticationService } from '../service/authentication.service';
 import { inject, Injectable } from '@angular/core';
@@ -27,7 +23,7 @@ export class UserIsAuthenticatedGuard {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
 
     return this.userAuthenticationService
-      .user$
+      .user()
       .pipe(
         map(user => {
 

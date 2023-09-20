@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LogoComponent } from '../../component/logo/logo.component';
 import { BlokooComponent } from '../../component/blokoo/blokoo.component';
+import { IconComponent } from '../../component/icon/icon.component';
 
 @Component({
   selector: 'app-page-content-home',
@@ -14,6 +15,7 @@ import { BlokooComponent } from '../../component/blokoo/blokoo.component';
     RouterModule,
     LogoComponent,
     BlokooComponent,
+    IconComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

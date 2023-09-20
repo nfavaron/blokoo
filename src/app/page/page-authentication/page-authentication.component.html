@@ -1,4 +1,4 @@
-<div class="bk__page bk__page--center">
+<div class="bk__flex bk__flex--page bk__flex--vertical-center">
 
   <h2>Sign in by email</h2>
 
@@ -16,10 +16,10 @@
       />
       <button
         type="submit"
-        class="bk__button bk__button--next-to-input"
+        class="bk__button bk__button--icon-only"
         [disabled]="!signInByEmailForm.valid"
       >
-        <span class="bk__button-icon bk__button-icon--next"></span>
+        <app-icon uid="next" />
       </button>
     </div>
   </form>
@@ -39,7 +39,7 @@
       (click)="onClickSignInWith('google')"
     >
       <span class="bk__button_text">Google</span>
-      <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+      <app-icon uid="next" />
     </button>
 
     <button
@@ -47,7 +47,7 @@
       (click)="onClickSignInWith('github')"
     >
       <span class="bk__button_text">GitHub</span>
-      <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+      <app-icon uid="next" />
     </button>
 
     <button
@@ -55,7 +55,7 @@
       (click)="onClickSignInWith('facebook')"
     >
       <span class="bk__button_text">Facebook</span>
-      <span class="bk__button-icon bk__button-icon--standalone bk__button-icon--next"></span>
+      <app-icon uid="next" />
     </button>
 
   </div>

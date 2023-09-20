@@ -3,36 +3,66 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 30px;
-  line-height: 15px;
+  height: 4rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+}
+
+.project:nth-child(even) {
+  background: var(--secondary-background);
+}
+
+.project-initial {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin: 0 0.5rem;
+  overflow: hidden;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  background: var(--brand-primary-color);
+  color: var(--accent-color);
+}
+
+.project-name {
+  font-weight: bold;
 }
 
 .project-info {
-  width: 100%;
+  width: 75%;
   flex-shrink: 1;
+}
+
+.project-status {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .invitation {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
+  width: 80px;
+  height: 2rem;
+  line-height: 2rem;
   text-align: center;
   flex-shrink: 0;
   cursor: pointer;
+  color: var(--accent-color);
 }
 
 .invitation--accept {
-  color: var(--secondary-color);
-  background: var(--brand-primary-color);
+  background: var(--status-success-color);
 }
 
 .invitation--reject {
-  color: var(--brand-primary-color);
-  background: var(--secondary-background);
+  background: var(--status-failure-color);
 }

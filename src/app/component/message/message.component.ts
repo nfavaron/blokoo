@@ -7,6 +7,7 @@ import { AbstractComponent } from '../abstract.component';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
+  styleUrls: ['./message.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -45,21 +46,9 @@ export class MessageComponent extends AbstractComponent implements OnInit {
 
     // Subscribe to observables
     this.subscribe(
-      this.messageService.select(),
-      (message) => this.onNextMessage(message)
+      this.messageService.message(),
+      (message) => this.onNextMessage(message),
     );
-  }
-
-  /**
-   * Next message
-   */
-  onNextMessage(message: MessageDto): void {
-
-    // Set new message
-    this.$message.set(message);
-
-    // Reset message after this.duration ms
-    setTimeout(() => this.reset(), this.duration);
   }
 
   /**
@@ -69,6 +58,18 @@ export class MessageComponent extends AbstractComponent implements OnInit {
 
     // Reset message
     this.reset();
+  }
+
+  /**
+   * Next message
+   */
+  private onNextMessage(message: MessageDto): void {
+
+    // Set new message
+    this.$message.set(message);
+
+    // Reset message after this.duration ms
+    setTimeout(() => this.reset(), this.duration);
   }
 
   /**

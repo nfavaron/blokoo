@@ -4,12 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserConfig } from '../../config/user.config';
 import { MessageService } from '../../service/message.service';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IconComponent } from '../../component/icon/icon.component';
 
 @Component({
   selector: 'app-page-authentication',
@@ -19,6 +15,7 @@ import {
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    IconComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -57,7 +54,10 @@ export class PageAuthenticationComponent {
     await this.router.navigate(['/']);
 
     // Notification
-    this.messageService.notify('success', `Email sent to ${this.signInByEmailForm.value.email}`);
+    this.messageService.message({
+      type: 'success',
+      text: `Email sent to ${this.signInByEmailForm.value.email}`,
+    });
   }
 
   /**
@@ -72,6 +72,9 @@ export class PageAuthenticationComponent {
     await this.router.navigate([this.userConfig.route.home]);
 
     // Notification
-    this.messageService.notify('success', `Hi ${this.userAuthenticationService.userSnapshot.name.split(' ')[0]}!`);
+    this.messageService.message({
+      type: 'success',
+      text: `Hi ${this.userAuthenticationService.userSnapshot.name.split(' ')[0]}!`,
+    });
   }
 }

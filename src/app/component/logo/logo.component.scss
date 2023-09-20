@@ -1,28 +1,30 @@
-.bk__logo {
+:host {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 3rem;
   height: 3rem;
 }
 
-.bk__logo--huge {
-  max-width: 15rem;
-  max-height: 15rem;
+:host[size="huge"] {
+  max-width: 20rem;
+  max-height: 20rem;
   width: 100%;
   height: 100%;
 }
 
-.bk__logo_svg {
+.logo-svg {
   width: 100%;
   height: 100%;
   position: absolute;
 }
 
-.bk__logo_svg--outer {
+.logo-svg--outer {
   fill: var(--brand-primary-color);
 }
 
-.bk__logo_svg--inner {
+.logo-svg--inner {
   fill: var(--brand-accent-color);
   transform: rotateZ(22deg);
 }

@@ -1,18 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  signal,
-  WritableSignal
-} from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, signal, WritableSignal } from '@angular/core';
 import { UserDto } from '../../dto/user.dto';
 import { UserService } from '../../service/user.service';
 import { InitialsPipe } from '../../pipe/initials.pipe';
 import { CommonModule } from '@angular/common';
+import { AbstractComponent } from '../abstract.component';
 
 @Component({
   selector: 'app-card-user',
@@ -25,7 +16,7 @@ import { CommonModule } from '@angular/common';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardUserComponent implements OnInit, OnDestroy {
+export class CardUserComponent extends AbstractComponent implements OnInit {
 
   /**
    * Inputs
@@ -44,34 +35,21 @@ export class CardUserComponent implements OnInit, OnDestroy {
   private userService = inject(UserService);
 
   /**
-   * Subscriptions
-   */
-  private subscriptions: Subscription[] = [];
-
-  /**
    * @inheritDoc
    */
   ngOnInit(): void {
 
-    // User subscription
-    this.subscriptions.push(
-      this.userService.read({ ids: [this.userId] }).subscribe(users => this.onNextUsers(users)),
+    // User
+    this.subscribe(
+      this.userService.read({ ids: [this.userId] }),
+      (users) => this.onNextUsers(users),
     );
   }
 
   /**
-   * @inheritDoc
+   * Next users
    */
-  ngOnDestroy(): void {
-
-    // Unsubscribe from observables
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-  /**
-   * Received next users
-   */
-  onNextUsers(users: UserDto[]): void {
+  private onNextUsers(users: UserDto[]): void {
 
     if (!users[0]) {
 

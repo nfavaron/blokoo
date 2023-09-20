@@ -1,6 +1,6 @@
 <div
   *ngIf="$message().text"
-  class="bk__message bk__message--{{ $message().type }}"
+  class="message message--{{ $message().type }}"
   [style.animation-duration]="duration + 'ms'"
   (click)="onClickMessage()"
 >

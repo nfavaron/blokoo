@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
+  Auth,
   FacebookAuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
-  Auth, signInWithPopup, sendSignInLinkToEmail
+  sendSignInLinkToEmail,
+  signInWithPopup
 } from '@angular/fire/auth';
 import { UserCredential } from '@firebase/auth';
 

@@ -3,16 +3,11 @@
 @import "styles/base";
 
 // BEM
-@import "styles/bem/bk__blokoo";
-@import "styles/bem/bk__logo";
-@import "styles/bem/bk__boxed";
-@import "styles/bem/bk__button";
-@import "styles/bem/bk__message";
-@import "styles/bem/bk__input";
-@import "styles/bem/bk__spacer";
-@import "styles/bem/bk__bar";
-@import "styles/bem/bk__page";
 @import "styles/bem/bk__flex";
+@import "styles/bem/bk__button";
+@import "styles/bem/bk__input";
+@import "styles/bem/bk__list";
+@import "styles/bem/bk__tab";
 
 // Themes
 @import "styles/theme/red";

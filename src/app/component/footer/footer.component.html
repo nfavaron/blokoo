@@ -1,0 +1,42 @@
+<div class="bk__flex bk__flex--boxed bk__flex--space-between">
+
+  <div
+    class="bk__flex bk__flex--start footer-tabs"
+  >
+    <div
+      *ngFor="let tab of $footer().tabs"
+      class="footer-tab"
+      [class.footer-tab--is-active]="tab.uid === $tab()"
+      (click)="onClickTab(tab.uid)"
+    >
+      <span class="footer-tab-label">{{ tab.label }}</span>
+    </div>
+  </div>
+
+  <button
+    *ngIf="$footer().actions.length > 0"
+    class="bk__button bk__button--icon-only bk__button--rounded bk__button--page-actions"
+    [class.bk__button--page-actions-is-open]="$isOpenMenuActions()"
+    (click)="onClickPageActionButton()"
+  >
+    <app-icon uid="more" />
+  </button>
+
+  <div
+    class="bk__list bk__list--is-menu menu-actions"
+    [class.menu-actions--is-open]="$isOpenMenuActions()"
+  >
+    <div
+      *ngFor="let action of $footer().actions"
+      class="bk__list-item"
+      (click)="onClickAction(action.uid)"
+    >
+      <app-icon
+        [uid]="action.icon"
+        class="bk__list-item-icon app-icon--small app-icon--color-neutral"
+      />
+      <span class="bk__list-item-text bk__list-item-text--with-icon">{{ action.label }}</span>
+    </div>
+  </div>
+
+</div>

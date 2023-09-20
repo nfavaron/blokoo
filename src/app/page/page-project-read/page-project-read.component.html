@@ -1,48 +1,42 @@
-<div class="bk__page">
+<div class="bk__flex bk__flex--page">
 
-  <div *ngIf="$isLoadingBlockers()">LOADING BLOCKERS...</div>
-  <div *ngIf="!$isLoadingBlockers()">
-    <h2>Blockers</h2>
-    <app-card-blocker
-      *ngFor="let blocker of $blockers()"
-      [blocker]="blocker"
-    ></app-card-blocker>
-  </div>
+  <div
+    class="bk__tab"
+    [class.bk__tab--is-active]="$tab() === TabEnum.projectBlockers"
+  >
 
-  <div *ngIf="$isLoadingMembers()">LOADING MEMBERS...</div>
-  <div *ngIf="!$isLoadingMembers()">
-    <h2>Members</h2>
-
-    <app-card-member
-      *ngFor="let member of $members()"
-      [member]="member"
-    ></app-card-member>
-
-  </div>
-
-  <footer class="bk__bar bk__bar--footer">
-    <div class="bk__boxed bk__boxed--bar">
-      <a
-        [routerLink]="['/project']"
-        class="bk__button bk__button--rounded-icon bk__button--margin-right"
-      >
-        <span class="bk__button-icon bk__button-icon--back"></span>
-      </a>
-      <span class="bk__bar_title">{{ $isLoadingProject() ? 'Loading project...' : $project().name }}</span>
-      <div class="bk__spacer"></div>
-      <a
-        [routerLink]="['/invitation', $project().id]"
-        class="bk__button bk__button--rounded-icon bk__button--margin-left"
-      >
-        <span class="bk__button-icon bk__button-icon--invite"></span>
-      </a>
-      <button
-        class="bk__button bk__button--rounded-icon bk__button--margin-left"
-        (click)="onClickAddBlocker()"
-      >
-        <span class="bk__button-icon bk__button-icon--add"></span>
-      </button>
+    <div *ngIf="$isLoadingBlockers()">LOADING BLOCKERS...</div>
+    <div *ngIf="!$isLoadingBlockers()">
+      <app-card-blocker
+        *ngFor="let blocker of $blockers()"
+        [blocker]="blocker"
+      ></app-card-blocker>
     </div>
-  </footer>
+
+  </div>
+
+  <div
+    class="bk__tab"
+    [class.bk__tab--is-active]="$tab() === TabEnum.projectMembers"
+  >
+
+    <div *ngIf="$isLoadingMembers()">LOADING MEMBERS...</div>
+    <div *ngIf="!$isLoadingMembers()">
+      <app-card-member
+        *ngFor="let member of $members()"
+        [member]="member"
+      ></app-card-member>
+    </div>
+
+  </div>
+
+  <div
+    class="bk__tab"
+    [class.bk__tab--is-active]="$tab() === TabEnum.projectSettings"
+  >
+
+    <h2>Settings</h2>
+
+  </div>
 
 </div>

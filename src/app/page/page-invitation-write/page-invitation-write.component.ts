@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserConfig } from '../../config/user.config';
@@ -12,6 +11,11 @@ import { ProjectDto } from '../../dto/project.dto';
 import { ProjectAclEnum } from '../../enum/project-acl.enum';
 import { InvitationConfig } from '../../config/invitation.config';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IconComponent } from '../../component/icon/icon.component';
+import { AbstractComponent } from '../../component/abstract.component';
+import { TabEnum } from '../../enum/tab.enum';
+import { ActionEnum } from '../../enum/action.enum';
+import { FooterService } from '../../service/footer.service';
 
 @Component({
   selector: 'app-page-invitation-write',
@@ -23,10 +27,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    IconComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageInvitationWriteComponent implements OnInit, OnDestroy {
+export class PageInvitationWriteComponent extends AbstractComponent implements OnInit {
 
   /**
    * State
@@ -51,37 +56,27 @@ export class PageInvitationWriteComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private clipboardService = inject(ClipboardService);
   private messageService = inject(MessageService);
-
-  /**
-   * Observable subscriptions
-   */
-  private subscriptions: Subscription[] = [];
+  private footerService = inject(FooterService);
 
   /**
    * @inheritDoc
    */
   ngOnInit(): void {
 
-    // Projects
-    this.subscriptions.push(
-      this.projectService.read({ aclMin: ProjectAclEnum.member }).subscribe(projects => {
+    // Update footer
+    this.footerService.footer({
+      tabs: [],
+      actions: [],
+    });
 
-        this.$projects.set(projects);
-        this.$isLoadingProjects.set(false);
-      })
+    // Projects
+    this.subscribe(
+      this.projectService.read({ aclMin: ProjectAclEnum.member }),
+      (projects) => this.onNextProjects(projects),
     );
 
     // Move to step 1
     this.step1();
-  }
-
-  /**
-   * @inheritDoc
-   */
-  ngOnDestroy(): void {
-
-    // Unsubscribe from observables
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   /**
@@ -110,7 +105,10 @@ export class PageInvitationWriteComponent implements OnInit, OnDestroy {
     this.clipboardService.copy(this.$invitationUrl());
 
     // Notify
-    this.messageService.notify('notice', 'Invitation link copied to clipboard!');
+    this.messageService.message({
+      type: 'notice',
+      text: 'Invitation link copied to clipboard!',
+    });
 
     // Inviting from a project
     if (this.route.snapshot.params['projectId']) {
@@ -121,6 +119,15 @@ export class PageInvitationWriteComponent implements OnInit, OnDestroy {
     }
 
     this.router.navigate([this.userConfig.route.home]);
+  }
+
+  /**
+   * Next projects
+   */
+  private onNextProjects(projects: ProjectDto[]): void {
+
+    this.$projects.set(projects);
+    this.$isLoadingProjects.set(false);
   }
 
   /**

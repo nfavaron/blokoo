@@ -1,26 +1,25 @@
-.bk__blokoo {
+:host {
   font-size: 1.5rem;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   white-space: nowrap;
-  padding: 0.25rem;
 }
 
-.bk__blokoo--huge {
+:host[size="huge"] {
   font-size: 3.5rem;
 }
 
-.bk__blokoo-name-blo {
+.blokoo-name-blo {
   color: var(--brand-primary-color);
 }
 
-.bk__blokoo-name-koo {
+.blokoo-name-koo {
   color: var(--brand-accent-color);
 }
 
-.bk__blokoo-name-dotcom {
-  color: var(--secondary-background);
-  opacity: 0.8;
+.blokoo-name-dotcom {
+  color: var(--accent-background);
+  opacity: 0.5;
   font-size: 0.33em;
 }

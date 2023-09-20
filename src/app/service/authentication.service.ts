@@ -1,12 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { UserDto } from '../dto/user.dto';
-import {
-  Auth,
-  signInWithPopup,
-  signOut,
-  authState
-} from '@angular/fire/auth';
+import { Auth, authState, signOut } from '@angular/fire/auth';
 import { UserConfig } from '../config/user.config';
 import { UserService } from './user.service';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
@@ -17,11 +12,6 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 export class AuthenticationService {
 
   /**
-   * User observable
-   */
-  user$: Observable<UserDto>;
-
-  /**
    * User snapshot
    */
   userSnapshot: UserDto = {
@@ -30,6 +20,11 @@ export class AuthenticationService {
     email: '',
     photoUrl: '',
   };
+
+  /**
+   * User observable
+   */
+  private user$: Observable<UserDto>;
 
   /**
    * Dependencies
@@ -61,6 +56,14 @@ export class AuthenticationService {
         }),
         map(user => this.userSnapshot),
       );
+  }
+
+  /**
+   * Return an observable of the current user.
+   */
+  user(): Observable<UserDto> {
+
+    return this.user$;
   }
 
   /**

@@ -1,4 +1,4 @@
-<div class="bk__page">
+<div class="bk__flex bk__flex--page">
 
   <div *ngIf="$isLoading()">TODO[nico] LOADING...</div>
 
@@ -8,10 +8,12 @@
       *ngIf="$acl()[project.id] && $acl()[project.id].acl === PROJECT_ACL_INVITED"
       class="project project--invited"
     >
+      <div class="project-initial">{{ project.name|initials }}</div>
       <div class="project-info">
         <div class="project-name">{{ project.name }}</div>
         <div class="project-status">invited</div>
       </div>
+      <div class="bk__flex bk__flex-spacer"></div>
       <button
         class="invitation invitation--accept"
         (click)="onClickInvitation(project.id, true)"
@@ -27,25 +29,15 @@
       class="project project--member"
       [routerLink]="['/project/' + project.id]"
     >
+      <div class="project-initial">{{ project.waitingFor|initials }}</div>
       <div class="project-info">
         <div class="project-name">{{ project.name }}</div>
         <div class="project-status">waiting for {{ project.waitingFor }} to {{ project.to }} since {{ project.sinceTimestamp }}</div>
       </div>
+      <div class="bk__flex bk__flex-spacer"></div>
+      <app-icon uid="next" />
     </a>
 
   </ng-container>
 
 </div>
-
-<footer class="bk__bar bk__bar--footer">
-  <div class="bk__boxed bk__boxed--bar">
-    <span class="bk__bar_title">My projects</span>
-    <div class="bk__spacer"></div>
-    <button
-      class="bk__button bk__button--rounded-icon bk__button--margin-left"
-      (click)="onClickAddProject()"
-    >
-      <span class="bk__button-icon bk__button-icon--add"></span>
-    </button>
-  </div>
-</footer>

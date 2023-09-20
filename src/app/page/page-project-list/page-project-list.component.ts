@@ -1,21 +1,19 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  signal,
-  WritableSignal
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
 import { ProjectService } from '../../service/project.service';
 import { ProjectAclEnum } from '../../enum/project-acl.enum';
 import { AuthenticationService } from '../../service/authentication.service';
 import { MessageService } from '../../service/message.service';
 import { ProjectDto } from '../../dto/project.dto';
 import { AclDto } from '../../dto/acl.dto';
+import { IconComponent } from '../../component/icon/icon.component';
+import { HeaderService } from '../../service/header.service';
+import { FooterService } from '../../service/footer.service';
+import { AbstractComponent } from '../../component/abstract.component';
+import { ActionEnum } from '../../enum/action.enum';
+import { TabEnum } from '../../enum/tab.enum';
+import { InitialsPipe } from '../../pipe/initials.pipe';
 
 @Component({
   selector: 'app-project-page-list',
@@ -25,10 +23,12 @@ import { AclDto } from '../../dto/acl.dto';
   imports: [
     CommonModule,
     RouterModule,
+    IconComponent,
+    InitialsPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageProjectListComponent implements OnInit, OnDestroy {
+export class PageProjectListComponent extends AbstractComponent implements OnInit {
 
   /**
    * Constants
@@ -49,66 +49,113 @@ export class PageProjectListComponent implements OnInit, OnDestroy {
   private projectService = inject(ProjectService);
   private authenticationService = inject(AuthenticationService);
   private messageService = inject(MessageService);
-
-  /**
-   * Observable subscriptions
-   */
-  private subscriptions: Subscription[] = [];
+  private headerService = inject(HeaderService);
+  private footerService = inject(FooterService);
+  private router = inject(Router);
 
   /**
    * @inheritDoc
    */
   ngOnInit(): void {
 
-    // Projects
-    this.subscriptions.push(
-      this.projectService.read({ aclMin: ProjectAclEnum.invited }).subscribe(projects => {
+    // Update header
+    this.headerService.header({
+      routerLink: ['/'],
+      title: '',
+    });
 
-        this.$projects.set(projects);
-        this.$isLoading.set(false);
-      })
+    // Update footer
+    this.footerService.footer({
+      tabs: [{
+        uid: TabEnum.projectList,
+        label: 'Projects',
+      }],
+      actions: [{
+        uid: ActionEnum.projectNew,
+        icon: 'add',
+        label: 'New project',
+      },{
+        uid: ActionEnum.invitationNew,
+        icon: 'invite',
+        label: 'Invite to projects',
+      }],
+    });
+
+    // Tab
+    this.footerService.tab(TabEnum.projectList);
+
+    // Action
+    this.subscribe(
+      this.footerService.action(),
+      (action) => this.onNextAction(action),
+    );
+
+    // Projects
+    this.subscribe(
+      this.projectService.read({ aclMin: ProjectAclEnum.invited }),
+      (projects) => this.onNextProjects(projects),
     );
 
     // ACLs
-    this.subscriptions.push(
-      this.projectService.selectAclProjects().subscribe(acls => {
-
-        const aclNext: { [projectId: string]: AclDto; } = {};
-
-        acls.forEach(acl => aclNext[acl.projectId] = acl);
-
-        this.$acl.set(aclNext);
-      }),
+    this.subscribe(
+      this.projectService.selectAclProjects(),
+      (acls) => this.onNextAcls(acls),
     );
   }
 
   /**
-   * @inheritDoc
+   * Next action
    */
-  ngOnDestroy(): void {
+  private onNextAction(action: ActionEnum): void {
 
-    // Unsubscribe from observables
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    if (action === ActionEnum.projectNew) {
+
+      // TODO[nico]side panel form
+      this
+        .projectService
+        .write({
+          id: '',
+          name: 'Project ' + String.fromCharCode(65 + Math.round(26 * Math.random())),
+          waitingFor: 'anyone',
+          to: 'add a blocker',
+          color: '#333333',
+          createUserId: this.authenticationService.userSnapshot.id,
+          createTimestamp: Date.now(),
+          sinceTimestamp: Date.now(),
+        })
+        .then((project) => this.messageService.message({
+          type: 'success',
+          text: 'Project added!',
+        }));
+
+      return;
+    }
+
+    if (action === ActionEnum.invitationNew) {
+
+      this.router.navigate(['/invitation']);
+    }
   }
 
   /**
-   * Clicked "add project" button
+   * Next projects
    */
-  onClickAddProject(): void {
+  private onNextProjects(projects: ProjectDto[]): void {
 
-    this
-      .projectService
-      .write({
-        id: '',
-        name: 'Project ' + String.fromCharCode(65 + Math.round(26 * Math.random())),
-        waitingFor: 'anyone',
-        to: 'add a blocker',
-        color: '#333333',
-        createUserId: this.authenticationService.userSnapshot.id,
-        createTimestamp: Date.now(),
-        sinceTimestamp: Date.now(),
-      })
-      .then((project) => this.messageService.notify('success', 'Project added!'));
+    this.$projects.set(projects);
+    this.$isLoading.set(false);
+  }
+
+  /**
+   * Next ACLs
+   */
+  private onNextAcls(acls: AclDto[]): void {
+
+    const aclNext: { [projectId: string]: AclDto; } = {};
+
+    acls.forEach(acl => aclNext[acl.projectId] = acl);
+
+    this.$acl.set(aclNext);
   }
 
   /**

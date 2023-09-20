@@ -1,0 +1,42 @@
+<div class="bk__flex bk__flex--boxed">
+
+  <ng-container *ngIf="!$header().title">
+
+    <a
+      [routerLink]="$header().routerLink"
+      class="bk__flex bk__flex--start logo"
+    >
+      <app-logo />
+      <app-blokoo />
+    </a>
+
+    <div class="bk__flex-spacer"></div>
+
+  </ng-container>
+
+  <ng-container *ngIf="$header().title">
+
+    <a
+      [routerLink]="$header().routerLink"
+      class="bk__button bk__button--icon-only bk__button--transparent"
+    >
+      <app-icon
+        uid="back"
+        class="app-icon--small"
+      />
+    </a>
+
+    <div class="title">{{ $header().title }}</div>
+
+  </ng-container>
+
+  <button
+    class="bk__button bk__button--icon-only bk__button--transparent"
+    (click)="onClickSignOut()"
+  >
+    <app-icon
+      uid="power"
+      class="app-icon--small"
+    />
+  </button>
+</div>

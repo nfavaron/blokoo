@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, take } from 'rxjs';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProjectAclEnum } from '../../enum/project-acl.enum';
 import { UserConfig } from '../../config/user.config';
@@ -11,11 +11,11 @@ import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../service/project.service';
 import { InvitationDto } from '../../dto/invitation.dto';
 import { ProjectDto } from '../../dto/project.dto';
+import { AbstractComponent } from '../../component/abstract.component';
 
 @Component({
   selector: 'app-page-invitation-read',
   templateUrl: './page-invitation-read.component.html',
-  styleUrls: ['./page-invitation-read.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -23,7 +23,7 @@ import { ProjectDto } from '../../dto/project.dto';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageInvitationReadComponent implements OnInit, OnDestroy {
+export class PageInvitationReadComponent extends AbstractComponent implements OnInit {
 
   /**
    * Dependencies
@@ -37,30 +37,14 @@ export class PageInvitationReadComponent implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
 
   /**
-   * Observable subscriptions
-   */
-  private subscriptions: Subscription[] = [];
-
-  /**
    * Initialized component
    */
   ngOnInit(): void {
 
-    this.subscriptions.push(
-      this
-      .invitationService
-      .read({ id: this.route.snapshot.params['invitationId'] })
-      .subscribe(invitations => this.onNextInvitations(invitations))
+    this.subscribe(
+      this.invitationService.read({ id: this.route.snapshot.params['invitationId'] }),
+      (invitations) => this.onNextInvitations(invitations),
     );
-  }
-
-  /**
-   * Destroyed component
-   */
-  ngOnDestroy(): void {
-
-    // Unsubscribe from observables
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   /**
@@ -86,9 +70,9 @@ export class PageInvitationReadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * On next invitations
+   * Next invitations
    */
-  onNextInvitations(invitations: InvitationDto[]): void {
+  private onNextInvitations(invitations: InvitationDto[]): void {
 
     // No invitations found or too many found
     if (invitations.length !== 0) {
@@ -106,7 +90,10 @@ export class PageInvitationReadComponent implements OnInit, OnDestroy {
     if (errorMessage) {
 
       // Notify
-      this.messageService.notify('failure', errorMessage);
+      this.messageService.message({
+        type: 'failure',
+        text: errorMessage,
+      });
 
       // Redirect to user home
       this.router.navigate([this.userConfig.route.home]);
@@ -160,7 +147,10 @@ export class PageInvitationReadComponent implements OnInit, OnDestroy {
           .then(() => {
 
             // Notify
-            this.messageService.notify('notice', 'Invitations received!');
+            this.messageService.message({
+              type: 'notice',
+              text: 'Invitations received!',
+            });
 
             // Redirect to user home
             this.router.navigate([this.userConfig.route.home]);

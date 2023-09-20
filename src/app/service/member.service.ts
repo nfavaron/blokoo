@@ -1,12 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  collection,
-  collectionData, doc,
-  Firestore,
-  query,
-  setDoc
-} from '@angular/fire/firestore';
+import { collection, collectionData, doc, Firestore, query, setDoc } from '@angular/fire/firestore';
 import { orderBy } from '@firebase/firestore';
 import { MemberFilterInterface } from '../interface/member-filter.interface';
 import { MemberDto } from '../dto/member.dto';

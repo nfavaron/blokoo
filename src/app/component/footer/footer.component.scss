@@ -1,0 +1,59 @@
+:host {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  box-shadow: 0 0 10px var(--shadow-color);
+  background: var(--accent-background);
+  display: flex;
+  height: 3rem;
+}
+
+.footer-tabs {
+  height: 100%;
+}
+
+.footer-tab {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0.5rem;
+  background: var(--transparent-color);
+  transition: background 250ms ease-out, border 250ms ease-out;
+  border-top: solid 5px var(--transparent-color);
+  border-bottom: solid 5px var(--transparent-color);
+}
+
+.footer-tab:hover {
+  background: var(--brand-primary-color);
+  cursor: pointer;
+}
+
+.footer-tab--is-active {
+  border-bottom: solid 5px var(--brand-primary-color);
+}
+
+.footer-tab-label {
+  padding: 0 0.5rem;
+  color: var(--accent-color);
+}
+
+.menu-actions {
+  right: 1rem;
+  bottom: -40rem;
+}
+
+.menu-actions--is-open {
+  bottom: 4rem;
+}
+
+.menu-tabs {
+  left: 0rem;
+  bottom: -40rem;
+}
+
+.menu-tabs--is-open {
+  bottom: 3rem;
+}

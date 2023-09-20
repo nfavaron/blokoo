@@ -1,16 +1,19 @@
 # BloKoo
 
-Setup
+### Setup
 ```
 npm install
 ```
 
-Development mode
+### Development mode
 ```
 npm start
 ```
 
-Production bundle
+### Production bundle
 ```
 npm run build
 ```
+
+# Don't forget
+Hunt for `TODO[nico]`.

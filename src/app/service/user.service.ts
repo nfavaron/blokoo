@@ -3,7 +3,6 @@ import { collection, collectionData, doc, Firestore, query, setDoc, where } from
 import { UserFilterInterface } from '../interface/user-filter.interface';
 import { Observable, of } from 'rxjs';
 import { UserDto } from '../dto/user.dto';
-import { orderBy } from '@firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
