@@ -2,7 +2,9 @@
 Work in progress project using Angular 16's signals & type oriented architecture.
 
 ### Screenshots
-![Homepage](documentation/blokoo-1.png) ![Authentication](documentation/blokoo-2.png) ![Projects](documentation/blokoo-3.png) ![Project](documentation/blokoo-4.png)
+| Homepage  | Authentication                          | Projects                                | Project                                 |
+| ------------- |-----------------------------------------|-----------------------------------------|-----------------------------------------|
+| ![Homepage](documentation/blokoo-1.png) | ![Homepage](documentation/blokoo-2.png) | ![Homepage](documentation/blokoo-3.png) | ![Homepage](documentation/blokoo-4.png) |
 
 ### Setup
 ```
