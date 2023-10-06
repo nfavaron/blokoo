@@ -1,7 +1,7 @@
-<div class="bk__card-user">
+<div class="bk__flex card-user">
   <div
-    class="bk__card-user-photo"
-    [style.background-image]="'url(' + $photoUrl() + ')'"
+    class="card-user-photo"
+    [style.background-image]="$photoUrl() ? 'url(' + $photoUrl() + ')' : 'none'"
   ></div>
-  <div class="bk__card-user-initials"><span>{{ $name()|initials }}</span></div>
+  <div class="card-user-initials">{{ $name()|initials }}</div>
 </div>

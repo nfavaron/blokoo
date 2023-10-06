@@ -1,6 +1,10 @@
 <div class="bk__flex bk__flex--page bk__flex--vertical-space-evenly">
 
-  <div class="bk__flex bk__flex--vertical-space-evenly bk__flex--boxed bk__flex--boxed-padding">
+  <div
+    class="bk__flex  bk__flex--boxed bk__flex--boxed-padding step-{{ $step() }}"
+    [class.bk__flex--vertical-space-evenly]="$step() === 1"
+    [class.bk__flex--vertical-center]="$step() === 2"
+  >
 
     <div class="instructions">
       <h1>Invitation</h1>

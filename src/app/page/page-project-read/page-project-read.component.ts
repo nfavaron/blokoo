@@ -19,6 +19,7 @@ import { AbstractComponent } from '../../component/abstract.component';
 import { HeaderService } from '../../service/header.service';
 import { FooterService } from '../../service/footer.service';
 import { TabEnum } from '../../enum/tab.enum';
+import { AclDto } from '../../dto/acl.dto';
 
 @Component({
   selector: 'app-page-project-read',
@@ -60,6 +61,7 @@ export class PageProjectReadComponent extends AbstractComponent implements OnIni
   $blockers: WritableSignal<BlockerDto[]> = signal([]);
   $members: WritableSignal<MemberDto[]> = signal([]);
   $tab: WritableSignal<TabEnum|null> = signal(null);
+  $acl: WritableSignal<ProjectAclEnum> = signal(ProjectAclEnum.member);
 
   /**
    * State (private)
@@ -135,6 +137,12 @@ export class PageProjectReadComponent extends AbstractComponent implements OnIni
     this.subscribe(
       this.projectService.read({ ids: [this.route.snapshot.params['projectId']], aclMin: ProjectAclEnum.member }),
       (projects) => this.onNextProjects(projects),
+    );
+
+    // ACLs
+    this.subscribe(
+      this.projectService.selectAclProjects(),
+      (acls) => this.onNextAcls(acls),
     );
   }
 
@@ -265,5 +273,19 @@ export class PageProjectReadComponent extends AbstractComponent implements OnIni
 
     this.$members.set(members);
     this.$isLoadingMembers.set(false);
+  }
+
+  /**
+   * Next ACLs
+   */
+  private onNextAcls(acls: AclDto[]): void {
+
+    acls.forEach(acl => {
+
+      if (acl.projectId === this.route.snapshot.params['projectId']) {
+
+        this.$acl.set(acl.acl);
+      }
+    });
   }
 }

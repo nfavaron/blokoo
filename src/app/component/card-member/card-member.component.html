@@ -1,7 +1,14 @@
-<div class="bk__card-member">
-  <app-card-user [userId]="member.userId"></app-card-user>
-  <div>
-    <div>{{ $name() }}</div>
-    <div>{{ member.acl|projectAcl }} since {{ member.createTimestamp|date }}</div>
+<div class="bk__card">
+  <div class="bk__card-avatar bk__card-avatar--round">
+    <app-card-user [userId]="member.userId"></app-card-user>
   </div>
+  <div class="bk__card-info">
+    <div class="bk__card-title">{{ $name() }}</div>
+    <div class="bk__card-subtitle">{{ member.acl|projectAcl }} since {{ member.createTimestamp|date }}</div>
+  </div>
+  <app-icon
+    *ngIf="acl >= PROJECT_ACL_MANAGER"
+    uid="edit"
+    class="bk__card-icon app-icon--small app-icon--color-neutral"
+  />
 </div>

@@ -19,6 +19,10 @@
   fill: var(--accent-color);
 }
 
+:host.app-icon--color-brand .icon-svg {
+  fill: var(--brand-primary-color);
+}
+
 :host.app-icon--color-success .icon-svg {
   fill: var(--status-success-color);
 }

@@ -1,0 +1,61 @@
+.bk__card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  transition: border-left 250ms ease-out;
+  border-left: solid 4px var(--transparent-color);
+  position: relative;
+}
+
+.bk__card--is-clickable:hover,
+.bk__card--is-clickable:nth-child(even):hover {
+  border-left: solid 4px var(--brand-primary-color);
+}
+
+.bk__card-avatar {
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  flex-shrink: 0;
+  margin: 0 0.75rem;
+  overflow: hidden;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  background: var(--brand-primary-color);
+  color: var(--accent-color);
+}
+
+.bk__card-avatar--round {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.bk__card-info {
+  width: 100%;
+  flex-shrink: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.1rem;
+}
+
+.bk__card-icon {
+  flex-shrink: 0;
+  margin: 0 1.25rem;
+}
+
+.bk__card-title {
+  font-weight: bold;
+}
+
+.bk__card-subtitle {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.7rem;
+}

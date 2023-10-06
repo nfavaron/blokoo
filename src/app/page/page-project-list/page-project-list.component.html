@@ -4,39 +4,12 @@
 
   <ng-container *ngFor="let project of $projects()">
 
-    <div
-      *ngIf="$acl()[project.id] && $acl()[project.id].acl === PROJECT_ACL_INVITED"
-      class="project project--invited"
-    >
-      <div class="project-initial">{{ project.name|initials }}</div>
-      <div class="project-info">
-        <div class="project-name">{{ project.name }}</div>
-        <div class="project-status">invited</div>
-      </div>
-      <div class="bk__flex bk__flex-spacer"></div>
-      <button
-        class="invitation invitation--accept"
-        (click)="onClickInvitation(project.id, true)"
-      >Accept</button>
-      <button
-        class="invitation invitation--reject"
-        (click)="onClickInvitation(project.id, false)"
-      >Reject</button>
-    </div>
-
-    <a
-      *ngIf="$acl()[project.id] && $acl()[project.id].acl >= PROJECT_ACL_MEMBER"
-      class="project project--member"
-      [routerLink]="['/project/' + project.id]"
-    >
-      <div class="project-initial">{{ project.waitingFor|initials }}</div>
-      <div class="project-info">
-        <div class="project-name">{{ project.name }}</div>
-        <div class="project-status">waiting for {{ project.waitingFor }} to {{ project.to }} since {{ project.sinceTimestamp }}</div>
-      </div>
-      <div class="bk__flex bk__flex-spacer"></div>
-      <app-icon uid="next" />
-    </a>
+    <app-card-project
+      *ngIf="$acl()[project.id]"
+      [project]="project"
+      [acl]="$acl()[project.id].acl"
+      (clickInvitation)="onClickInvitation(project.id, $event)"
+      ></app-card-project>
 
   </ng-container>
 

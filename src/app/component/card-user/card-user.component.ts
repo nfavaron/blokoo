@@ -26,7 +26,7 @@ export class CardUserComponent extends AbstractComponent implements OnInit {
   /**
    * State
    */
-  $name: WritableSignal<string> = signal('');
+  $name: WritableSignal<string> = signal('?');
   $photoUrl: WritableSignal<string> = signal('')
 
   /**

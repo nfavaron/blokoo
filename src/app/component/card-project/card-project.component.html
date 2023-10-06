@@ -1,0 +1,44 @@
+<div
+  *ngIf="acl === PROJECT_ACL_INVITED"
+  class="bk__card"
+>
+  <div class="bk__card-avatar">{{ project.name|initials }}</div>
+  <div class="bk__card-info">
+    <div class="bk__card-title">{{ project.name }}</div>
+    <div class="bk__card-subtitle">invited</div>
+  </div>
+  <button
+    class="bk__button bk__button--icon-only bk__button--rounded button-invitation button-invitation--accept"
+    (click)="onClickInvitation(true)"
+  >
+    <app-icon
+      uid="done"
+      class="app-icon--small"
+    />
+  </button>
+  <button
+    class="bk__button bk__button--icon-only bk__button--rounded button-invitation button-invitation--reject"
+    (click)="onClickInvitation(false)"
+  >
+    <app-icon
+      uid="close"
+      class="app-icon--small"
+    />
+  </button>
+</div>
+
+<a
+  *ngIf="acl >= PROJECT_ACL_MEMBER"
+  class="bk__card bk__card--is-clickable"
+  [routerLink]="['/project/' + project.id]"
+>
+  <div class="bk__card-avatar">{{ project.name|initials }}</div>
+  <div class="bk__card-info">
+    <div class="bk__card-title">{{ project.name }}</div>
+    <div class="bk__card-subtitle">waiting for {{ project.waitingFor }} to {{ project.to }}</div>
+  </div>
+  <app-icon
+    uid="next"
+    class="bk__card-icon app-icon--small app-icon--color-neutral"
+  />
+</a>

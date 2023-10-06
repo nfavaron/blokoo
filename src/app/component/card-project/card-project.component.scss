@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.button-invitation {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0.75rem 0 0;
+  transition: opacity 250ms ease-out;
+  opacity: 1;
+}
+
+.button-invitation:hover {
+  opacity: 0.8;
+}
+
+.button-invitation--accept,
+.button-invitation--accept:hover {
+  background: var(--status-success-color);
+}
+
+.button-invitation--reject,
+.button-invitation--reject:hover {
+  background: var(--status-failure-color);
+}

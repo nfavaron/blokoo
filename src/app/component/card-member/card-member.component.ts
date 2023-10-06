@@ -6,6 +6,8 @@ import { CardUserComponent } from '../card-user/card-user.component';
 import { CommonModule } from '@angular/common';
 import { ProjectAclPipe } from '../../pipe/project-acl.pipe';
 import { AbstractComponent } from '../abstract.component';
+import { IconComponent } from '../icon/icon.component';
+import { ProjectAclEnum } from '../../enum/project-acl.enum';
 
 @Component({
   selector: 'app-card-member',
@@ -16,15 +18,22 @@ import { AbstractComponent } from '../abstract.component';
     CommonModule,
     CardUserComponent,
     ProjectAclPipe,
+    IconComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardMemberComponent extends AbstractComponent implements OnInit {
 
   /**
+   * Constants
+   */
+  readonly PROJECT_ACL_MANAGER: ProjectAclEnum = ProjectAclEnum.manager;
+
+  /**
    * State
    */
   @Input() member!: MemberDto;
+  @Input() acl!: ProjectAclEnum;
   $name: WritableSignal<string> = signal('');
 
   /**

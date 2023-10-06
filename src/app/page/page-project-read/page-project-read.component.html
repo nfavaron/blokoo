@@ -10,6 +10,7 @@
       <app-card-blocker
         *ngFor="let blocker of $blockers()"
         [blocker]="blocker"
+        [acl]="$acl()"
       ></app-card-blocker>
     </div>
 
@@ -25,6 +26,7 @@
       <app-card-member
         *ngFor="let member of $members()"
         [member]="member"
+        [acl]="$acl()"
       ></app-card-member>
     </div>
 
@@ -36,6 +38,7 @@
   >
 
     <h2>Settings</h2>
+    <div>TODO[nico] rename/leave/delete project</div>
 
   </div>
 

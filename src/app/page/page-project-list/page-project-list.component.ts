@@ -14,6 +14,7 @@ import { AbstractComponent } from '../../component/abstract.component';
 import { ActionEnum } from '../../enum/action.enum';
 import { TabEnum } from '../../enum/tab.enum';
 import { InitialsPipe } from '../../pipe/initials.pipe';
+import { CardProjectComponent } from '../../component/card-project/card-project.component';
 
 @Component({
   selector: 'app-project-page-list',
@@ -25,16 +26,11 @@ import { InitialsPipe } from '../../pipe/initials.pipe';
     RouterModule,
     IconComponent,
     InitialsPipe,
+    CardProjectComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageProjectListComponent extends AbstractComponent implements OnInit {
-
-  /**
-   * Constants
-   */
-  readonly PROJECT_ACL_INVITED: ProjectAclEnum = ProjectAclEnum.invited;
-  readonly PROJECT_ACL_MEMBER: ProjectAclEnum = ProjectAclEnum.member;
 
   /**
    * State
